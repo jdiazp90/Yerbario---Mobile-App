@@ -73,12 +73,14 @@ export default async function CatalogPage() {
                 </div>
               </div>
               {user && (
-                <Link
-                  href={`/catalog/${yerba.id}/edit`}
-                  className="shrink-0 text-sm font-semibold text-brand"
-                >
-                  Editar
-                </Link>
+                <div className="flex shrink-0 flex-col items-end gap-1.5 text-sm font-semibold">
+                  <Link href={`/catalog/${yerba.id}/review/new`} className="text-brand">
+                    Catar
+                  </Link>
+                  <Link href={`/catalog/${yerba.id}/edit`} className="text-ink-muted">
+                    Editar
+                  </Link>
+                </div>
               )}
             </li>
           ))}
