@@ -119,16 +119,40 @@ Sprint 1 Goal: Working scaffold with design tokens, schema, auth, and a first en
 Duration: 1–2 weeks
 
 Tasks:
-- [ ] Repo scaffold (Next.js + Tailwind + Supabase client) (Full-stack, M)
-- [ ] Design tokens v1 (color/type/spacing) (Designer, M)
-- [ ] Supabase schema migration (Yerba, Review, User, WikiEntry) (Full-stack, M)
-- [ ] Auth flow (Full-stack, S)
-- [ ] Yerba catalog CRUD (Full-stack, M)
-- [ ] Review form v1 (Full-stack, L)
-- [ ] Ranking list view (Frontend, M)
+- [x] Repo scaffold (Next.js + Tailwind + Supabase client) (Full-stack, M)
+- [x] Design tokens v1 (color/type/spacing) (Designer, M)
+- [x] Supabase schema migration (Yerba, Review, User, WikiEntry) (Full-stack, M)
+- [x] Auth flow (Full-stack, S)
+- [x] Yerba catalog CRUD (Full-stack, M)
+- [x] Review form v1 (Full-stack, L)
+- [x] Ranking list view (Frontend, M)
 ```
 
 See `sprint-01-prompt.md` for the ready-to-paste kickoff prompt for this sprint.
+
+Sprint 1 shipped the technical flow end-to-end (auth, CRUD, cata, ranking) with the approved tokens wired in, but every screen is functional-only scaffolding — plain cards, no imagery, no real visual composition. That polish was deliberately deferred, not forgotten — see Sprint 1.5 below.
+
+---
+
+## Sprint 1.5 — Visual & Mobile-First Polish
+
+```
+Goal: Take the Sprint 1 screens (catalog, review form, ranking, auth) from
+      functional scaffolding to something that actually looks like a product —
+      designed mobile-first, not just responsive.
+Not a features sprint: no new data, no new routes — same screens, real design pass.
+
+Tasks:
+- [ ] Mobile-first layout pass on every Sprint 1 screen (currently centered-desktop-first)
+- [ ] Card composition & visual hierarchy (catalog list, ranking list)
+- [ ] Imagery — yerba photos actually showing, empty-state illustration/treatment
+- [ ] Score chip, tags, and button polish beyond bare Tailwind utility styling
+- [ ] Loading/empty state treatment (currently plain text)
+- [ ] Revisit against the Design Tokens v1 artifact — make sure the shipped screens
+      actually reach the bar that artifact set, not just the right hex codes
+```
+
+Sequencing: before or alongside Sprint 2 (Wiki v1 + Maridaje v1) — José to decide which comes first when Sprint 1.5 starts.
 
 ---
 
