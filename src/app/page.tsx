@@ -21,7 +21,7 @@ export default async function Home() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-24 text-center">
       <span className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
-        Sprint 1 · Phase 5
+        Sprint 1 · Phase 7
       </span>
       <h1 className="text-3xl font-bold tracking-tight text-ink">Yerbario</h1>
 
@@ -32,8 +32,14 @@ export default async function Home() {
           </p>
           <div className="flex gap-3">
             <Link
-              href="/catalog"
+              href="/ranking"
               className="rounded-md bg-brand px-4 py-2.5 text-sm font-semibold text-ink-inverse transition-colors hover:bg-brand-hover"
+            >
+              Tu ranking
+            </Link>
+            <Link
+              href="/catalog"
+              className="rounded-md border border-line px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-line-strong"
             >
               Ver catálogo
             </Link>

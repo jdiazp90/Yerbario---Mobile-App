@@ -24,12 +24,20 @@ export default async function CatalogPage() {
           </p>
         </div>
         {user ? (
-          <Link
-            href="/catalog/new"
-            className="shrink-0 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-ink-inverse transition-colors hover:bg-brand-hover"
-          >
-            + Agregar
-          </Link>
+          <div className="flex shrink-0 items-center gap-3">
+            <Link
+              href="/ranking"
+              className="text-sm font-semibold text-brand"
+            >
+              Tu ranking
+            </Link>
+            <Link
+              href="/catalog/new"
+              className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-ink-inverse transition-colors hover:bg-brand-hover"
+            >
+              + Agregar
+            </Link>
+          </div>
         ) : (
           <Link
             href="/login"
