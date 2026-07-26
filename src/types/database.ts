@@ -26,6 +26,7 @@ export interface Database {
           avatar_url?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       yerba: {
         Row: {
@@ -58,6 +59,7 @@ export interface Database {
           image_url?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       review: {
         Row: {
@@ -102,6 +104,22 @@ export interface Database {
           photo_url?: string | null;
           created_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "review_yerba_id_fkey";
+            columns: ["yerba_id"];
+            isOneToOne: false;
+            referencedRelation: "yerba";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "review_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       wiki_entry: {
         Row: {
@@ -128,6 +146,7 @@ export interface Database {
           image_url?: string | null;
           order_index?: number;
         };
+        Relationships: [];
       };
     };
     Views: {
@@ -144,7 +163,9 @@ export interface Database {
           avg_score: number;
           review_count: number;
         };
+        Relationships: [];
       };
     };
+    Functions: Record<string, never>;
   };
 }
