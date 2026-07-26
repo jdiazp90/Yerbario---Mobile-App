@@ -154,6 +154,8 @@ Tasks:
 
 Sequencing: before or alongside Sprint 2 (Wiki v1 + Maridaje v1) — José to decide which comes first when Sprint 1.5 starts.
 
+See `sprint-1.5-prompt.md` for the ready-to-paste kickoff prompt for this sprint.
+
 ---
 
 ## Red Flags to Watch
