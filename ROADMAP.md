@@ -2,6 +2,8 @@
 
 Methodology: Agile / lightweight Scrum, adapted for a solo-designer + AI-assisted execution model (same pattern as VRx Connect 3.0).
 
+**Sprint review process:** no formal Scrum ceremony (no stakeholders, no scheduled demo). At the end of each sprint: re-check the sprint goal, run the resulting flow end-to-end in the browser, then decide together what rolls into the next sprint's backlog vs. what's done.
+
 ---
 
 ## Epics
