@@ -21,7 +21,7 @@ export default async function Home() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-24 text-center">
       <span className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
-        Sprint 1 · Phase 4
+        Sprint 1 · Phase 5
       </span>
       <h1 className="text-3xl font-bold tracking-tight text-ink">Yerbario</h1>
 
@@ -30,14 +30,22 @@ export default async function Home() {
           <p className="max-w-md text-base text-ink-muted">
             Hola, {displayName ?? user.email} — auth conectada.
           </p>
-          <form action={logout}>
-            <button
-              type="submit"
-              className="rounded-md border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors hover:border-line-strong"
+          <div className="flex gap-3">
+            <Link
+              href="/catalog"
+              className="rounded-md bg-brand px-4 py-2.5 text-sm font-semibold text-ink-inverse transition-colors hover:bg-brand-hover"
             >
-              Cerrar sesión
-            </button>
-          </form>
+              Ver catálogo
+            </Link>
+            <form action={logout}>
+              <button
+                type="submit"
+                className="rounded-md border border-line px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-line-strong"
+              >
+                Cerrar sesión
+              </button>
+            </form>
+          </div>
         </>
       ) : (
         <>
@@ -58,6 +66,9 @@ export default async function Home() {
               Iniciar sesión
             </Link>
           </div>
+          <Link href="/catalog" className="text-sm font-semibold text-brand">
+            Ver catálogo
+          </Link>
         </>
       )}
     </main>
