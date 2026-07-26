@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+:root {
+  /* Primitives — raw palette, never referenced directly outside this file.
+     Full scale + contrast ratios: Design Tokens v1 (Sprint 1 sign-off). */
+  --green-50: #f1f5ea;
+  --green-100: #e0e9d2;
+  --green-200: #c4d7a9;
+  --green-300: #a3c17e;
+  --green-400: #7fa758;
+  --green-500: #5e8740;
+  --green-600: #4a6b32;
+  --green-700: #395329;
+  --green-800: #2b3f20;
+  --green-900: #1e2c17;
+
+  --parchment-0: #fffdf9;
+  --parchment-50: #fbf6ea;
+  --parchment-100: #f4ead3;
+  --parchment-200: #e9dab3;
+  --parchment-300: #dac088;
+  --parchment-500: #a8854e;
+  --parchment-600: #86693d;
+
+  --espresso-600: #45312a;
+  --espresso-700: #362720;
+  --espresso-900: #1a1210;
+
+  --danger-600: #93331f;
+  --warning-600: #a6620e;
+  --warning-700: #7d4a0b;
+  --info-600: #305f59;
+
+  /* Semantic — theme-facing roles. Components use these, never the primitives above. */
+  --canvas: var(--parchment-50); /* color.bg.base */
+  --surface: var(--parchment-0); /* color.bg.surface */
+  --ink: var(--espresso-900); /* color.text.primary — 17.1:1 on canvas/surface (AAA) */
+  --ink-muted: var(--espresso-600); /* color.text.secondary — 11.3:1 (AAA) */
+  --ink-inverse: var(--parchment-50); /* color.text.inverse + text.on-brand */
+  --line: var(--parchment-500); /* color.border.default — 3.2:1, non-text floor */
+  --line-strong: var(--parchment-600); /* color.border.strong */
+  --brand: var(--green-600); /* color.interactive.default — also the focus-ring color */
+  --brand-hover: var(--green-700);
+  --brand-active: var(--green-800);
+  --success: var(--green-600);
+  --warning: var(--warning-700); /* text-safe (6.8:1); use --warning-fill for filled chips */
+  --warning-fill: var(--warning-600); /* 4.7:1 with white text */
+  --danger: var(--danger-600);
+  --info: var(--info-600);
+}
+
+@theme inline {
+  --font-sans: var(--font-manrope);
+
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-active: var(--brand-active);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-warning-fill: var(--warning-fill);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+}
+
+@theme {
+  /* Soft, tactile radii — closer to a rounded gourd than a sharp app-icon corner. */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Warm-tinted shadows (espresso, not pure black). */
+  --shadow-sm: 0 1px 2px rgba(26, 18, 16, 0.07);
+  --shadow-md: 0 4px 14px rgba(26, 18, 16, 0.11);
+  --shadow-lg: 0 14px 34px rgba(26, 18, 16, 0.15);
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+}
