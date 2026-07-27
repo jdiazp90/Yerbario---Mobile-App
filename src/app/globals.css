@@ -47,6 +47,31 @@
   --warning-fill: var(--warning-600); /* 4.7:1 with white text */
   --danger: var(--danger-600);
   --info: var(--info-600);
+
+  /* "Premium sutil" surface pass (Sprint 1.5 REV 2) — depth via layered
+     shadow + a whisper of gradient, all derived from the tokens above via
+     color-mix(). No new hues; extends the palette, doesn't relitigate it. */
+  --surface-grad: linear-gradient(
+    180deg,
+    var(--parchment-0),
+    color-mix(in srgb, var(--parchment-0) 88%, var(--parchment-100))
+  );
+  --canvas-grad: radial-gradient(
+      140% 100% at 15% -10%,
+      color-mix(in srgb, var(--green-100) 45%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      var(--parchment-50),
+      color-mix(in srgb, var(--parchment-50) 92%, var(--parchment-100))
+    );
+  --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 1px 2px rgba(26, 18, 16, 0.06), 0 8px 20px -6px rgba(26, 18, 16, 0.14);
+  --card-shadow-hover: 0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 2px 4px rgba(26, 18, 16, 0.08), 0 14px 30px -8px rgba(26, 18, 16, 0.2);
+  --chrome-bg: color-mix(in srgb, var(--parchment-0) 72%, transparent);
+  --chrome-blur: saturate(160%) blur(14px);
 }
 
 @theme inline {
@@ -83,6 +108,35 @@
 }
 
 body {
-  background: var(--canvas);
+  background: var(--canvas-grad);
+  background-attachment: fixed;
   color: var(--ink);
+}
+
+/* Loading skeleton — warm parchment shimmer. Component styling lives in
+   Tailwind utilities; this is the one animation that needs a keyframe. */
+.skeleton {
+  background: linear-gradient(
+    100deg,
+    var(--parchment-100) 30%,
+    var(--parchment-200) 50%,
+    var(--parchment-100) 70%
+  );
+  background-size: 200% 100%;
+  animation: yb-shimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes yb-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
 }

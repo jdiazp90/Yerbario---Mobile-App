@@ -1,8 +1,13 @@
 import { ORIGIN_LABELS, STICK_LABELS, TYPE_LABELS } from "@/lib/yerba-labels";
+import {
+  btnPrimary,
+  fieldClass,
+  fieldLabelClass,
+  inputClass,
+} from "@/lib/ui";
 import type { Database } from "@/types/database";
-
-const inputClass =
-  "rounded-md border border-line bg-surface px-3 py-2 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/30";
+import { Select } from "./ui";
+import { PhotoUploadField } from "./photo-upload-field";
 
 export function YerbaForm({
   action,
@@ -14,9 +19,9 @@ export function YerbaForm({
   submitLabel: string;
 }) {
   return (
-    <form action={action} className="flex flex-col gap-4">
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Marca
+    <form action={action} className="flex flex-col gap-5">
+      <label className={fieldClass}>
+        <span className={fieldLabelClass}>Marca</span>
         <input
           name="brand"
           type="text"
@@ -26,8 +31,8 @@ export function YerbaForm({
         />
       </label>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Variedad / edición
+      <label className={fieldClass}>
+        <span className={fieldLabelClass}>Variedad / edición</span>
         <input
           name="variety_name"
           type="text"
@@ -38,14 +43,9 @@ export function YerbaForm({
         />
       </label>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Tipo
-        <select
-          name="type"
-          required
-          defaultValue={defaultValues?.type ?? ""}
-          className={inputClass}
-        >
+      <div className={fieldClass}>
+        <span className={fieldLabelClass}>Tipo</span>
+        <Select name="type" required defaultValue={defaultValues?.type ?? ""}>
           <option value="" disabled>
             Elegí una opción
           </option>
@@ -54,16 +54,15 @@ export function YerbaForm({
               {label}
             </option>
           ))}
-        </select>
-      </label>
+        </Select>
+      </div>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Palo
-        <select
+      <div className={fieldClass}>
+        <span className={fieldLabelClass}>Palo</span>
+        <Select
           name="stick_presence"
           required
           defaultValue={defaultValues?.stick_presence ?? ""}
-          className={inputClass}
         >
           <option value="" disabled>
             Elegí una opción
@@ -73,16 +72,15 @@ export function YerbaForm({
               {label}
             </option>
           ))}
-        </select>
-      </label>
+        </Select>
+      </div>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Origen
-        <select
+      <div className={fieldClass}>
+        <span className={fieldLabelClass}>Origen</span>
+        <Select
           name="origin_country"
           required
           defaultValue={defaultValues?.origin_country ?? ""}
-          className={inputClass}
         >
           <option value="" disabled>
             Elegí una opción
@@ -92,24 +90,19 @@ export function YerbaForm({
               {label}
             </option>
           ))}
-        </select>
-      </label>
+        </Select>
+      </div>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Foto (URL, opcional)
-        <input
-          name="image_url"
-          type="url"
-          placeholder="https://..."
-          defaultValue={defaultValues?.image_url ?? ""}
-          className={inputClass}
-        />
-      </label>
+      <PhotoUploadField
+        fileFieldName="image_file"
+        currentUrlFieldName="current_image_url"
+        label="Portada"
+        brand={defaultValues?.brand ?? "?"}
+        defaultValue={defaultValues?.image_url}
+        size="lg"
+      />
 
-      <button
-        type="submit"
-        className="mt-2 rounded-md bg-brand px-4 py-2.5 text-sm font-semibold text-ink-inverse transition-colors hover:bg-brand-hover"
-      >
+      <button type="submit" className={`${btnPrimary} mt-1 w-full`}>
         {submitLabel}
       </button>
     </form>

@@ -68,12 +68,14 @@ export interface Database {
           user_id: string;
           overall_score: number;
           aroma_note: string | null;
+          aroma_tags: string[];
           bitterness_intensity: number | null;
           cut_type: CutType | null;
           foam_quality: number | null;
           yield_notes: string | null;
           verdict: string | null;
           photo_url: string | null;
+          molienda_photo_url: string | null;
           created_at: string;
         };
         Insert: {
@@ -82,12 +84,14 @@ export interface Database {
           user_id: string;
           overall_score: number;
           aroma_note?: string | null;
+          aroma_tags?: string[];
           bitterness_intensity?: number | null;
           cut_type?: CutType | null;
           foam_quality?: number | null;
           yield_notes?: string | null;
           verdict?: string | null;
           photo_url?: string | null;
+          molienda_photo_url?: string | null;
           created_at?: string;
         };
         Update: {
@@ -96,12 +100,14 @@ export interface Database {
           user_id?: string;
           overall_score?: number;
           aroma_note?: string | null;
+          aroma_tags?: string[];
           bitterness_intensity?: number | null;
           cut_type?: CutType | null;
           foam_quality?: number | null;
           yield_notes?: string | null;
           verdict?: string | null;
           photo_url?: string | null;
+          molienda_photo_url?: string | null;
           created_at?: string;
         };
         Relationships: [
@@ -143,6 +149,33 @@ export interface Database {
           category?: WikiCategory;
           title?: string;
           body?: string;
+          image_url?: string | null;
+          order_index?: number;
+        };
+        Relationships: [];
+      };
+      pairing_entry: {
+        Row: {
+          id: string;
+          title: string;
+          linked_yerba_type: YerbaType | null;
+          description: string;
+          image_url: string | null;
+          order_index: number;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          linked_yerba_type?: YerbaType | null;
+          description: string;
+          image_url?: string | null;
+          order_index?: number;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          linked_yerba_type?: YerbaType | null;
+          description?: string;
           image_url?: string | null;
           order_index?: number;
         };

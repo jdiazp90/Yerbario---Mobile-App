@@ -1,17 +1,26 @@
-const inputClass =
-  "rounded-md border border-line bg-surface px-3 py-2 text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/30";
-
-const SCALE_1_TO_5 = [1, 2, 3, 4, 5];
+import {
+  btnPrimary,
+  fieldClass,
+  fieldLabelClass,
+  inputClass,
+  textareaClass,
+} from "@/lib/ui";
+import { Select } from "./ui";
+import { RatingInput } from "./rating-input";
+import { PhotoUploadField } from "./photo-upload-field";
+import { AromaPicker } from "./aroma-picker";
 
 export function ReviewForm({
   action,
+  brand,
 }: {
   action: (formData: FormData) => void;
+  brand: string;
 }) {
   return (
-    <form action={action} className="flex flex-col gap-4">
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Puntaje general (1–10)
+    <form action={action} className="flex flex-col gap-5">
+      <label className={fieldClass}>
+        <span className={fieldLabelClass}>Puntaje general (1–10)</span>
         <input
           name="overall_score"
           type="number"
@@ -23,92 +32,72 @@ export function ReviewForm({
         />
       </label>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Molienda
-        <select name="cut_type" required defaultValue="" className={inputClass}>
+      <div className={fieldClass}>
+        <span className={fieldLabelClass}>Molienda</span>
+        <Select name="cut_type" required defaultValue="">
           <option value="" disabled>
             Elegí una opción
           </option>
           <option value="fina">Fina</option>
           <option value="gruesa">Gruesa</option>
-        </select>
-      </label>
-
-      <div className="grid grid-cols-2 gap-4">
-        <label className="flex flex-col gap-1.5 text-sm text-ink">
-          Amargor (1–5)
-          <select name="bitterness_intensity" required defaultValue="" className={inputClass}>
-            <option value="" disabled>
-              —
-            </option>
-            {SCALE_1_TO_5.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="flex flex-col gap-1.5 text-sm text-ink">
-          Espuma (1–5)
-          <select name="foam_quality" required defaultValue="" className={inputClass}>
-            <option value="" disabled>
-              —
-            </option>
-            {SCALE_1_TO_5.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-        </label>
+        </Select>
       </div>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Aroma
+      <PhotoUploadField
+        fileFieldName="molienda_photo_file"
+        currentUrlFieldName="molienda_photo_url"
+        label="Foto de la molienda"
+        brand={brand}
+      />
+
+      <RatingInput name="bitterness_intensity" label="Amargor" required />
+      <RatingInput name="foam_quality" label="Espuma" required />
+
+      <AromaPicker />
+
+      <label className={fieldClass}>
+        <span className={fieldLabelClass}>
+          Notas adicionales{" "}
+          <span className="font-medium text-ink-muted">· opcional</span>
+        </span>
         <textarea
           name="aroma_note"
           rows={2}
-          placeholder="Notas herbáceas, tostadas, cítricas..."
-          className={inputClass}
+          placeholder="Algo que las etiquetas no capturaron..."
+          className={textareaClass}
         />
       </label>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Rendimiento
+      <label className={fieldClass}>
+        <span className={fieldLabelClass}>Rendimiento</span>
         <textarea
           name="yield_notes"
           rows={2}
           placeholder="Cuántas cebadas aguantó, cómo evolucionó..."
-          className={inputClass}
+          className={textareaClass}
         />
       </label>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Veredicto
+      <label className={fieldClass}>
+        <span className={fieldLabelClass}>Veredicto</span>
         <textarea
           name="verdict"
           rows={3}
           required
           placeholder="¿Por qué le pusiste este puntaje?"
-          className={inputClass}
+          className={textareaClass}
         />
       </label>
 
-      <label className="flex flex-col gap-1.5 text-sm text-ink">
-        Foto (URL, opcional)
-        <input
-          name="photo_url"
-          type="url"
-          placeholder="https://..."
-          className={inputClass}
-        />
-      </label>
+      <PhotoUploadField
+        fileFieldName="photo_file"
+        currentUrlFieldName="photo_url"
+        label="Foto de la cata"
+        brand={brand}
+        size="lg"
+      />
 
-      <button
-        type="submit"
-        className="mt-2 rounded-md bg-brand px-4 py-2.5 text-sm font-semibold text-ink-inverse transition-colors hover:bg-brand-hover"
-      >
+      <button type="submit" className={`${btnPrimary} mt-1 w-full`}>
         Guardar cata
       </button>
     </form>
