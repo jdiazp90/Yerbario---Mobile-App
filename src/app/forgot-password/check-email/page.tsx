@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { resendConfirmationEmail } from "@/lib/actions/auth";
 import { btnPrimary, btnGhost } from "@/lib/ui";
 import { TopBar } from "@/components/top-bar";
 
@@ -23,13 +22,7 @@ function MailGlyph() {
   );
 }
 
-export default async function CheckEmailPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ email?: string; resent?: string; error?: string }>;
-}) {
-  const { email, resent, error } = await searchParams;
-
+export default function ForgotPasswordCheckEmailPage() {
   return (
     <div className="flex min-h-full flex-col">
       <TopBar />
@@ -40,34 +33,16 @@ export default async function CheckEmailPage({
             Revisá tu email
           </h1>
           <p className="text-sm leading-relaxed text-ink-muted">
-            Te mandamos un link de confirmación. Confirmá tu cuenta y después
-            iniciá sesión.
+            Si esa dirección tiene una cuenta, te mandamos un link para
+            elegir una contraseña nueva.
           </p>
         </div>
-
-        {resent && !error && (
-          <p className="rounded-md border border-line bg-surface px-4 py-3 text-sm font-medium text-brand">
-            Te lo volvimos a mandar.
-          </p>
-        )}
-        {error && (
-          <p className="rounded-md border border-danger bg-surface px-4 py-3 text-sm font-medium text-danger">
-            {error}
-          </p>
-        )}
-
         <Link href="/login" className={`${btnPrimary} w-full`}>
           Ir a iniciar sesión
         </Link>
-
-        {email && (
-          <form action={resendConfirmationEmail}>
-            <input type="hidden" name="email" value={email} />
-            <button type="submit" className={btnGhost}>
-              ¿No te llegó? Reenviar email de confirmación
-            </button>
-          </form>
-        )}
+        <Link href="/forgot-password" className={btnGhost}>
+          ¿No te llegó? Probar de nuevo
+        </Link>
       </main>
     </div>
   );

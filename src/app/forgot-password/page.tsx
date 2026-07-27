@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { login } from "@/lib/actions/auth";
+import { requestPasswordReset } from "@/lib/actions/auth";
 import {
   btnPrimary,
   fieldClass,
@@ -8,7 +8,7 @@ import {
 } from "@/lib/ui";
 import { TopBar } from "@/components/top-bar";
 
-export default async function LoginPage({
+export default async function ForgotPasswordPage({
   searchParams,
 }: {
   searchParams: Promise<{ error?: string }>;
@@ -21,10 +21,10 @@ export default async function LoginPage({
       <main className="mx-auto flex w-full max-w-sm flex-1 flex-col gap-6 px-6 pb-16 pt-10">
         <div className="flex flex-col gap-1.5">
           <h1 className="text-[26px] font-extrabold tracking-tight text-ink">
-            Iniciar sesión
+            ¿Olvidaste tu contraseña?
           </h1>
           <p className="text-sm text-ink-muted">
-            Entrá para ver tu ranking y cargar catas.
+            Escribí tu email y te mandamos un link para elegir una nueva.
           </p>
         </div>
 
@@ -34,7 +34,7 @@ export default async function LoginPage({
           </p>
         )}
 
-        <form action={login} className="flex flex-col gap-4">
+        <form action={requestPasswordReset} className="flex flex-col gap-4">
           <label className={fieldClass}>
             <span className={fieldLabelClass}>Email</span>
             <input
@@ -45,31 +45,14 @@ export default async function LoginPage({
               className={inputClass}
             />
           </label>
-          <label className={fieldClass}>
-            <span className={fieldLabelClass}>Contraseña</span>
-            <input
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              className={inputClass}
-            />
-            <Link
-              href="/forgot-password"
-              className="self-end text-[13px] font-bold text-brand"
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </label>
           <button type="submit" className={`${btnPrimary} mt-1 w-full`}>
-            Entrar
+            Enviar link
           </button>
         </form>
 
         <p className="text-center text-sm text-ink-muted">
-          ¿No tenés cuenta?{" "}
-          <Link href="/signup" className="font-bold text-brand">
-            Registrate
+          <Link href="/login" className="font-bold text-brand">
+            Volver a iniciar sesión
           </Link>
         </p>
       </main>

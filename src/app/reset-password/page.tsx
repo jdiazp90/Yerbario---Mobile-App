@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { login } from "@/lib/actions/auth";
+import { updatePassword } from "@/lib/actions/auth";
 import {
   btnPrimary,
   fieldClass,
+  fieldHintClass,
   fieldLabelClass,
   inputClass,
 } from "@/lib/ui";
 import { TopBar } from "@/components/top-bar";
 
-export default async function LoginPage({
+export default async function ResetPasswordPage({
   searchParams,
 }: {
   searchParams: Promise<{ error?: string }>;
@@ -21,10 +21,10 @@ export default async function LoginPage({
       <main className="mx-auto flex w-full max-w-sm flex-1 flex-col gap-6 px-6 pb-16 pt-10">
         <div className="flex flex-col gap-1.5">
           <h1 className="text-[26px] font-extrabold tracking-tight text-ink">
-            Iniciar sesión
+            Elegí una contraseña nueva
           </h1>
           <p className="text-sm text-ink-muted">
-            Entrá para ver tu ranking y cargar catas.
+            Ya confirmamos que sos vos. Escribí tu nueva contraseña.
           </p>
         </div>
 
@@ -34,44 +34,35 @@ export default async function LoginPage({
           </p>
         )}
 
-        <form action={login} className="flex flex-col gap-4">
+        <form action={updatePassword} className="flex flex-col gap-4">
           <label className={fieldClass}>
-            <span className={fieldLabelClass}>Email</span>
-            <input
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              className={inputClass}
-            />
-          </label>
-          <label className={fieldClass}>
-            <span className={fieldLabelClass}>Contraseña</span>
+            <span className={fieldLabelClass}>
+              Contraseña nueva <span className={fieldHintClass}>· mínimo 6</span>
+            </span>
             <input
               name="password"
               type="password"
-              autoComplete="current-password"
+              autoComplete="new-password"
               required
+              minLength={6}
               className={inputClass}
             />
-            <Link
-              href="/forgot-password"
-              className="self-end text-[13px] font-bold text-brand"
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
+          </label>
+          <label className={fieldClass}>
+            <span className={fieldLabelClass}>Confirmar contraseña</span>
+            <input
+              name="confirm_password"
+              type="password"
+              autoComplete="new-password"
+              required
+              minLength={6}
+              className={inputClass}
+            />
           </label>
           <button type="submit" className={`${btnPrimary} mt-1 w-full`}>
-            Entrar
+            Guardar contraseña
           </button>
         </form>
-
-        <p className="text-center text-sm text-ink-muted">
-          ¿No tenés cuenta?{" "}
-          <Link href="/signup" className="font-bold text-brand">
-            Registrate
-          </Link>
-        </p>
       </main>
     </div>
   );
