@@ -43,11 +43,10 @@ export const cardClass =
 export const chromeClass =
   "bg-[color:var(--chrome-bg)] [backdrop-filter:var(--chrome-blur)] [-webkit-backdrop-filter:var(--chrome-blur)]";
 
-// Score color cut — same 7 / 4 thresholds as always, now just a solid dot
-// color (REV 3: quiet score) instead of a filled/gradient badge. The color
-// still encodes real state (good/mid/bad cata) — only the container changed.
-export function scoreDotClass(score: number): string {
-  if (score >= 7) return "bg-brand";
-  if (score >= 4) return "bg-warning-fill";
-  return "bg-danger";
+// Score color cut — same 7 / 4 thresholds as always, applied to the QuietScore
+// star icon. The color still encodes real state (good/mid/bad cata).
+export function scoreColorClass(score: number): string {
+  if (score >= 7) return "text-brand";
+  if (score >= 4) return "text-warning-fill";
+  return "text-danger";
 }

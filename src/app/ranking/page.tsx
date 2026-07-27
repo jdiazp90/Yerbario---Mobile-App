@@ -2,12 +2,13 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ORIGIN_LABELS, STICK_LABELS, TYPE_LABELS } from "@/lib/yerba-labels";
-import { btnPrimary, cardClass, peerSelectedClass } from "@/lib/ui";
+import { btnPrimary, cardClass } from "@/lib/ui";
 import type { OriginCountry, StickPresence, YerbaType } from "@/types/database";
 import { TopBar } from "@/components/top-bar";
 import { BottomNav } from "@/components/bottom-nav";
 import { EmptyState, QuietScore, YerbaTags } from "@/components/ui";
 import { YerbaImage } from "@/components/yerba-image";
+import { FilterRow } from "@/components/filter-row";
 
 const MEDALS = ["", "g1", "g2", "g3"];
 const MEDAL_CLASS: Record<string, string> = {
@@ -15,41 +16,6 @@ const MEDAL_CLASS: Record<string, string> = {
   g2: "border-transparent bg-gradient-to-br from-[#9aa0a6] to-[#767c82] text-white shadow-sm",
   g3: "border-transparent bg-gradient-to-br from-[#c08552] to-[#9c6538] text-white shadow-sm",
 };
-
-/* One filter group: renders as a horizontally-scrollable chip row that submits
-   on change (no separate "Filtrar" button). Each chip is a real radio so the
-   whole thing is one native <form> with no client JS. */
-function FilterRow({
-  name,
-  options,
-  selected,
-}: {
-  name: string;
-  options: [value: string, label: string][];
-  selected?: string;
-}) {
-  return (
-    <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      {[["", "Todas"] as [string, string], ...options].map(([value, label]) => {
-        const active = (selected ?? "") === value;
-        return (
-          <label key={value || "all"} className="flex-none">
-            <input
-              type="radio"
-              name={name}
-              value={value}
-              defaultChecked={active}
-              className="peer sr-only"
-            />
-            <span className={`flex min-h-10 cursor-pointer items-center rounded-full border border-line bg-surface px-3.5 text-[13px] font-semibold text-ink-muted transition-colors hover:border-line-strong ${peerSelectedClass}`}>
-              {label}
-            </span>
-          </label>
-        );
-      })}
-    </div>
-  );
-}
 
 export default async function RankingPage({
   searchParams,

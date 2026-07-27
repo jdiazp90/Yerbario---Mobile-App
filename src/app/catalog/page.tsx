@@ -1,18 +1,26 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { btnPrimary, btnSecondary, cardClass, inputClass } from "@/lib/ui";
+import { ORIGIN_LABELS, STICK_LABELS, TYPE_LABELS } from "@/lib/yerba-labels";
+import type { OriginCountry, StickPresence, YerbaType } from "@/types/database";
 import { PencilIcon, SearchIcon } from "@/components/icons";
 import { TopBar } from "@/components/top-bar";
 import { BottomNav } from "@/components/bottom-nav";
 import { EmptyState, QuietScore, YerbaTags } from "@/components/ui";
 import { YerbaImage } from "@/components/yerba-image";
+import { FilterRow } from "@/components/filter-row";
 
 export default async function CatalogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{
+    q?: string;
+    type?: YerbaType;
+    stick_presence?: StickPresence;
+    origin_country?: OriginCountry;
+  }>;
 }) {
-  const { q } = await searchParams;
+  const { q, type, stick_presence, origin_country } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -28,10 +36,11 @@ export default async function CatalogPage({
     initial = (profile?.display_name ?? user.email ?? "?").trim()[0]?.toUpperCase() ?? "?";
   }
 
-  const { data: allYerbas } = await supabase
-    .from("yerba_rankings")
-    .select("*")
-    .order("brand");
+  let query = supabase.from("yerba_rankings").select("*").order("brand");
+  if (type) query = query.eq("type", type);
+  if (stick_presence) query = query.eq("stick_presence", stick_presence);
+  if (origin_country) query = query.eq("origin_country", origin_country);
+  const { data: allYerbas } = await query;
 
   const needle = q?.trim().toLowerCase();
   const yerbas = needle
@@ -41,6 +50,8 @@ export default async function CatalogPage({
           y.variety_name.toLowerCase().includes(needle),
       )
     : allYerbas;
+
+  const hasFilters = Boolean(type || stick_presence || origin_country);
 
   return (
     <div className="flex min-h-full flex-col">
@@ -68,29 +79,53 @@ export default async function CatalogPage({
             )}
           </div>
 
-          <form className="relative">
-            <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-ink-muted" />
-            <input
-              type="search"
-              name="q"
-              defaultValue={q ?? ""}
-              placeholder="Buscar yerba, marca..."
-              className={`${inputClass} pl-11`}
+          <form className="flex flex-col gap-2.5">
+            <div className="relative">
+              <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-ink-muted" />
+              <input
+                type="search"
+                name="q"
+                defaultValue={q ?? ""}
+                placeholder="Buscar yerba, marca..."
+                className={`${inputClass} pl-11`}
+              />
+            </div>
+            <FilterRow
+              name="type"
+              selected={type}
+              options={Object.entries(TYPE_LABELS)}
             />
+            <FilterRow
+              name="origin_country"
+              selected={origin_country}
+              options={Object.entries(ORIGIN_LABELS)}
+            />
+            <div className="flex items-center gap-3 pt-0.5">
+              <FilterRow
+                name="stick_presence"
+                selected={stick_presence}
+                options={Object.entries(STICK_LABELS)}
+              />
+              <button type="submit" className={`${btnPrimary} flex-none`}>
+                Aplicar
+              </button>
+            </div>
           </form>
 
           {!yerbas?.length ? (
             <EmptyState
-              title={needle ? "Sin resultados" : "El catálogo está vacío"}
+              title={needle || hasFilters ? "Sin resultados" : "El catálogo está vacío"}
               message={
                 needle
                   ? `Ninguna yerba coincide con "${q}".`
-                  : "Todavía nadie cargó una yerba. Sé el primero en sumar una al catálogo."
+                  : hasFilters
+                    ? "Ninguna yerba coincide con estos filtros. Probá aflojar la búsqueda."
+                    : "Todavía nadie cargó una yerba. Sé el primero en sumar una al catálogo."
               }
               action={
-                needle ? (
+                needle || hasFilters ? (
                   <Link href="/catalog" className={btnPrimary}>
-                    Limpiar búsqueda
+                    Limpiar {needle ? "búsqueda" : "filtros"}
                   </Link>
                 ) : user ? (
                   <Link href="/catalog/new" className={btnPrimary}>

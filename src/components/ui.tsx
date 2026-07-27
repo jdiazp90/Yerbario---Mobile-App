@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 import { ORIGIN_LABELS, STICK_LABELS, TYPE_LABELS } from "@/lib/yerba-labels";
-import { cardClass, scoreDotClass } from "@/lib/ui";
+import { cardClass, scoreColorClass } from "@/lib/ui";
 import type {
   OriginCountry,
   StickPresence,
   YerbaType,
 } from "@/types/database";
-import { ChevronDown, MateGourd } from "./icons";
+import { ChevronDown, MateGourd, StarIcon } from "./icons";
 
 /* ---------- Tag / badge ---------- */
 
@@ -64,10 +64,9 @@ export function QuietScore({
   size?: "md" | "lg";
 }) {
   return (
-    <span className="inline-flex flex-none items-baseline gap-1.5">
-      <span
-        className={`h-[7px] w-[7px] rounded-full ${scoreDotClass(score)}`}
-        aria-hidden="true"
+    <span className="inline-flex flex-none items-center gap-1">
+      <StarIcon
+        className={`${size === "lg" ? "h-4 w-4" : "h-3.5 w-3.5"} ${scoreColorClass(score)}`}
       />
       <span
         className={`font-extrabold tabular-nums text-ink ${size === "lg" ? "text-lg" : "text-[15px]"}`}
