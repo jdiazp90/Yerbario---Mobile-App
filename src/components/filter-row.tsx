@@ -1,4 +1,4 @@
-import { peerSelectedClass } from "@/lib/ui";
+import { peerSelectedChipClass } from "@/lib/ui";
 
 /* One filter group: renders as a horizontally-scrollable chip row that submits
    on change (no separate "Filtrar" button). Each chip is a real radio so the
@@ -25,7 +25,7 @@ export function FilterRow({
               defaultChecked={active}
               className="peer sr-only"
             />
-            <span className={`flex min-h-10 cursor-pointer items-center rounded-full border border-line bg-surface px-3.5 text-[13px] font-semibold text-ink-muted transition-colors hover:border-line-strong ${peerSelectedClass}`}>
+            <span className={`flex min-h-11 cursor-pointer items-center rounded-full border border-[color-mix(in_srgb,var(--line)_35%,transparent)] bg-surface px-3.5 text-[13px] font-semibold text-ink-muted transition-[border-color,background-color,transform] duration-150 hover:border-line-strong active:scale-[0.96] active:duration-100 ${peerSelectedChipClass}`}>
               {label}
             </span>
           </label>

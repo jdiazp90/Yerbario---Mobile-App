@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { ORIGIN_LABELS, STICK_LABELS, TYPE_LABELS } from "@/lib/yerba-labels";
 import { btnPrimary, cardClass, selectedPillClass } from "@/lib/ui";
 import type { OriginCountry, StickPresence, YerbaType } from "@/types/database";
 import { TopBar } from "@/components/top-bar";
 import { BottomNav } from "@/components/bottom-nav";
 import { EmptyState, QuietScore, YerbaTags } from "@/components/ui";
 import { YerbaImage } from "@/components/yerba-image";
-import { FilterRow } from "@/components/filter-row";
+import { FilterPanel } from "@/components/filter-panel";
 
 const MEDALS = ["", "g1", "g2", "g3"];
 const MEDAL_CLASS: Record<string, string> = {
@@ -174,28 +173,15 @@ export default async function RankingPage({
             )}
           </div>
 
-          <form className="flex flex-col gap-2.5">
-            {view === "mine" && <input type="hidden" name="view" value="mine" />}
-            <FilterRow
-              name="type"
-              selected={type}
-              options={Object.entries(TYPE_LABELS)}
+          <form>
+            <FilterPanel
+              type={type}
+              stickPresence={stick_presence}
+              originCountry={origin_country}
+              hiddenFields={
+                view === "mine" && <input type="hidden" name="view" value="mine" />
+              }
             />
-            <FilterRow
-              name="origin_country"
-              selected={origin_country}
-              options={Object.entries(ORIGIN_LABELS)}
-            />
-            <div className="flex items-center gap-3 pt-0.5">
-              <FilterRow
-                name="stick_presence"
-                selected={stick_presence}
-                options={Object.entries(STICK_LABELS)}
-              />
-              <button type="submit" className={`${btnPrimary} flex-none`}>
-                Aplicar
-              </button>
-            </div>
           </form>
 
           {!rows.length ? (

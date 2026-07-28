@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { btnPrimary, btnSecondary, cardClass, inputClass } from "@/lib/ui";
-import { ORIGIN_LABELS, STICK_LABELS, TYPE_LABELS } from "@/lib/yerba-labels";
 import type { OriginCountry, StickPresence, YerbaType } from "@/types/database";
 import { PencilIcon, SearchIcon } from "@/components/icons";
 import { TopBar } from "@/components/top-bar";
 import { BottomNav } from "@/components/bottom-nav";
 import { EmptyState, QuietScore, YerbaTags } from "@/components/ui";
 import { YerbaImage } from "@/components/yerba-image";
-import { FilterRow } from "@/components/filter-row";
+import { FilterPanel } from "@/components/filter-panel";
 
 export default async function CatalogPage({
   searchParams,
@@ -79,7 +78,7 @@ export default async function CatalogPage({
             )}
           </div>
 
-          <form className="flex flex-col gap-2.5">
+          <form className="flex flex-col gap-3">
             <div className="relative">
               <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-ink-muted" />
               <input
@@ -90,26 +89,11 @@ export default async function CatalogPage({
                 className={`${inputClass} pl-11`}
               />
             </div>
-            <FilterRow
-              name="type"
-              selected={type}
-              options={Object.entries(TYPE_LABELS)}
+            <FilterPanel
+              type={type}
+              stickPresence={stick_presence}
+              originCountry={origin_country}
             />
-            <FilterRow
-              name="origin_country"
-              selected={origin_country}
-              options={Object.entries(ORIGIN_LABELS)}
-            />
-            <div className="flex items-center gap-3 pt-0.5">
-              <FilterRow
-                name="stick_presence"
-                selected={stick_presence}
-                options={Object.entries(STICK_LABELS)}
-              />
-              <button type="submit" className={`${btnPrimary} flex-none`}>
-                Aplicar
-              </button>
-            </div>
           </form>
 
           {!yerbas?.length ? (

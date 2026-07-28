@@ -10,13 +10,12 @@ import { ChevronDown, MateGourd, StarIcon } from "./icons";
 
 /* ---------- Tag / badge ---------- */
 
-type TagVariant = "type" | "neutral" | "origin";
+type TagVariant = "type" | "neutral";
 
 const TAG_STYLES: Record<TagVariant, string> = {
-  type: "bg-[var(--green-100)] text-brand-active border-[var(--green-300)]",
-  neutral: "bg-canvas text-ink-muted border-line",
-  origin:
-    "bg-[var(--parchment-100)] text-[var(--parchment-600)] border-[var(--parchment-300)]",
+  type: "bg-[var(--green-100)] text-brand-active border-[color-mix(in_srgb,var(--green-300)_55%,transparent)]",
+  neutral:
+    "bg-canvas text-ink-muted border-[color-mix(in_srgb,var(--line)_40%,transparent)]",
 };
 
 export function Tag({
@@ -28,14 +27,17 @@ export function Tag({
 }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11.5px] font-semibold leading-relaxed ${TAG_STYLES[variant]}`}
+      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11.5px] font-semibold leading-relaxed ${TAG_STYLES[variant]}`}
     >
       {children}
     </span>
   );
 }
 
-/* The standard yerba descriptor row: type (prominent) · stick · origin. */
+/* The standard yerba descriptor row: type is the one meaningful category, so
+   it's the only badge — palo and origen are secondary/scannable but don't
+   need their own pill each, so they read as quiet metadata text instead of
+   three same-weight badges competing for attention. */
 export function YerbaTags({
   type,
   stick,
@@ -46,10 +48,11 @@ export function YerbaTags({
   origin: OriginCountry;
 }) {
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
       <Tag variant="type">{TYPE_LABELS[type]}</Tag>
-      <Tag variant="neutral">{STICK_LABELS[stick]}</Tag>
-      <Tag variant="origin">{ORIGIN_LABELS[origin]}</Tag>
+      <span className="text-[12px] text-ink-muted">
+        {STICK_LABELS[stick]} · {ORIGIN_LABELS[origin]}
+      </span>
     </div>
   );
 }
