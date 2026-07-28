@@ -100,6 +100,26 @@ Epic 7: Store Locator (Phase 2 — evaluate)
 
 [ ] Social layer: follow, activity feed
     Priority: Could | Owner: Full-stack | Effort: XL
+
+[ ] Eventos materos — eventos, conferencias y catas en tu ciudad
+    Priority: Could | Owner: Full-stack | Effort: L
+    Notes: post-MVP, anotado por José (2026-07-28). Falta definir fuente de
+    datos (carga manual/comunidad vs. agregación de terceros) antes de poder
+    estimar mejor.
+
+[ ] Tiendas — directorio de comercios del mundo matero en Argentina
+    Priority: Could | Owner: Full-stack | Effort: XL
+    Notes: post-MVP, anotado por José (2026-07-28). Se imagina tipo
+    "Mercado Libre" pero orientado a mate, fetcheando info de tiendas reales.
+    Se solapa conceptualmente con "Store locator" arriba — en algún momento
+    conviene decidir si son la misma feature o dos separadas.
+
+[ ] Login con Google / Apple (Supabase Auth ya soporta ambos como OAuth)
+    Priority: Could | Owner: Full-stack | Effort: M
+    Notes: post-MVP, anotado por José (2026-07-28). No reemplaza email/password,
+    se suma como alternativa. Requiere registrar la app en Google Cloud Console
+    y en Apple Developer, y cargar esas credenciales en Supabase — trabajo de
+    configuración, no solo de código.
 ```
 
 ### Won't Have (now)
