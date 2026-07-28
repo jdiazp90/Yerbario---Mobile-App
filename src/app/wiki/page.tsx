@@ -28,7 +28,10 @@ export default async function WikiPage({
     .order("category")
     .order("order_index");
   if (category) query = query.eq("category", category);
-  const { data: entries } = await query;
+  const { data: entries, error } = await query;
+  if (error) {
+    console.error("wiki_entry query failed:", error);
+  }
 
   return (
     <div className="flex min-h-full flex-col">
@@ -75,8 +78,12 @@ export default async function WikiPage({
 
           {!entries?.length ? (
             <EmptyState
-              title="Todavía no hay entradas acá"
-              message="Esta sección de la Wiki está en construcción — volvé pronto."
+              title={error ? "DEBUG: query failed" : "Todavía no hay entradas acá"}
+              message={
+                error
+                  ? `DEBUG ${error.code ?? ""}: ${error.message}`
+                  : "Esta sección de la Wiki está en construcción — volvé pronto."
+              }
             />
           ) : (
             <ul className="flex flex-col gap-3">
