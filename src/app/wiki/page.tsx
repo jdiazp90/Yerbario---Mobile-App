@@ -78,12 +78,8 @@ export default async function WikiPage({
 
           {!entries?.length ? (
             <EmptyState
-              title={error ? "DEBUG: query failed" : "Todavía no hay entradas acá"}
-              message={
-                error
-                  ? `DEBUG ${error.code ?? ""}: ${error.message}`
-                  : "Esta sección de la Wiki está en construcción — volvé pronto."
-              }
+              title="Todavía no hay entradas acá"
+              message="Esta sección de la Wiki está en construcción — volvé pronto."
             />
           ) : (
             <ul className="flex flex-col gap-3">
